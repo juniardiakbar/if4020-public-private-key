@@ -1,4 +1,6 @@
-from helper import modular_pow
+import random
+
+from src.rsa.helper import modular_pow, gcd, xgcd, chooseE
 
 def encrypt(message, block_size = 2):
     n = 1568953
@@ -48,3 +50,33 @@ def decrypt(blocks, block_size = 2):
         message += tmp
 
     return message
+
+def generate_pair(public_key_path, private_key_path):
+    rand1 = random.randint(100, 300)
+    rand2 = random.randint(100, 300)
+
+    fo = open('src/rsa/primes.txt', 'r')
+    lines = fo.read().splitlines()
+    fo.close()
+
+    prime1 = int(lines[rand1])
+    prime2 = int(lines[rand2])
+
+    n = prime1 * prime2
+    totient = (prime1 - 1) * (prime2 - 1)
+    e = chooseE(totient)
+
+    gcd, x, y = xgcd(e, totient)
+
+    if (x < 0):
+        d = x + totient
+    else:
+        d = x
+
+    f_public = open(public_key_path, 'w')
+    f_public.write(str(n) + ', ' + str(e))
+    f_public.close()
+
+    f_private = open(private_key_path, 'w')
+    f_public.write(str(n) + ', ' + str(d))
+    f_private.close()
