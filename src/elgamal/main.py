@@ -1,12 +1,12 @@
 import random
 
 from os import path
-from helper.math import modular_pow
+from src.helper.math import modular_pow
 
 PRIME_LIST_FILE_NAME = path.abspath(path.join(path.dirname(__file__), 'primes-300k-to-400k.txt'))
 BLOCK_SIZE = 2
 
-def generate_pair():
+def generate_pair(public_key_path, private_key_path):
     prime_list = open(PRIME_LIST_FILE_NAME).read().splitlines()
     p = int(random.choice(prime_list))
     g = random.randint(2, p - 1)
@@ -15,10 +15,22 @@ def generate_pair():
 
     public_key = (y, g, p)
     private_key = (x, p)
+
+    public_key_str = ', '.join([str(x) for x in public_key])
+    private_key_str = ', '.join([str(x) for x in private_key])
+
+    f_public = open(public_key_path, 'w')
+    f_public.write(public_key_str)
+    f_public.close()
+
+    f_private = open(private_key_path, 'w')
+    f_private.write(private_key_str)
+    f_private.close()
+
     return public_key, private_key
 
 def encrypt(message, public_key):
-    y, g, p = public_key
+    y, g, p = [int(x) for x in public_key.split(', ')]
     blocks = []
     block = ord(message[0]) if len(message) > 0 else -1
 
@@ -42,7 +54,8 @@ def encrypt(message, public_key):
     return stringified
 
 def decrypt(stringified, private_key):
-    x, p = private_key
+    print(private_key)
+    x, p = [int(x) for x in private_key.split(', ')]
 
     split = stringified.split(' ')
     blocks = []
@@ -63,15 +76,3 @@ def decrypt(stringified, private_key):
             plain //= 1000
         message += tmp
     return message
-
-if __name__ == '__main__':
-    # Testing ground
-    public_key, private_key = generate_pair()
-    print('Public Key:', public_key)
-    print('Private Key:', private_key)
-
-    message = input('Message to be encrypted: ')
-    encrypted = encrypt(message, public_key)
-    decrypted = decrypt(encrypted, private_key)
-    print('Encrypted message:', encrypted)
-    print('Decrypted message:', decrypted)

@@ -4,8 +4,9 @@ from src.gui.pages.start_page import StartPage
 from src.gui.pages.end_page import EndPage
 from src.gui.pages.rsa_form import RSAForm
 from src.gui.pages.rsa_generate_key import RSAGenerateKey
-# from src.gui.pages.elgamal_form import ElgamalForm
-# from src.gui.pages.diffiehellman_form import DiffieHellmanForm
+from src.gui.pages.elgamal_generate_key import ElGamalGenerateKey
+from src.gui.pages.elgamal_form import ElGamalForm
+from src.gui.pages.diffiehellman_form import DiffieHellmanForm
 
 
 class App(tk.Tk):
@@ -18,8 +19,7 @@ class App(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        # for F in (StartPage, RSAForm, ElgamalForm, DiffieHellmanForm):
-        for F in (StartPage, RSAGenerateKey, RSAForm):
+        for F in (StartPage, RSAGenerateKey, ElGamalGenerateKey, RSAForm, ElGamalForm, DiffieHellmanForm):
             page_name = F.__name__
 
             frame = F(parent=self.container, controller=self)
@@ -38,4 +38,3 @@ class App(tk.Tk):
                         title=title, file_dir=file_dir, result=result, isTyping=isTyping)
         frame.configure(bg='white')
         frame.grid(row=0, column=0, sticky="nsew")
-

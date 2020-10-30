@@ -2,17 +2,17 @@ import tkinter as tk
 import tkinter.filedialog as fd
 import src.helper.gui as hg
 
-from src.rsa.main import generate_pair, encrypt, decrypt
+from src.elgamal.main import generate_pair, encrypt, decrypt
 
 
-class RSAForm(tk.Frame):
+class ElGamalForm(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
         self.initialize()
 
-        hg.insert_header(self, 'Algoritma RSA')
+        hg.insert_header(self, 'Algoritma El Gamal')
 
         self.render_mode_frame()
         self.render_message_option_frame()
@@ -131,12 +131,8 @@ class RSAForm(tk.Frame):
 
         self.selected_key_entry.insert(tk.END, lines)
 
-    def generate_key(self):
-        print('GENERATE KEY FOR RSA ALGORITHM')
-        generate_pair(self.public_key_dir.get(), self.private_key_dir.get())
-
     def execute(self):
-        print('RSA {} Started!'.format("Encrypt" if self.encrypt.get() == 0 else "Decrypt"))
+        print('El Gamal {} Started!'.format("Encrypt" if self.encrypt.get() == 0 else "Decrypt"))
         if (self.message_option.get() == 0):
             print('> Message:', self.message_entry.get())
         else:
@@ -176,5 +172,5 @@ class RSAForm(tk.Frame):
 
         print('{} Finished!'.format("Encrypt" if self.encrypt.get() == 0 else "Decrypt"))
         
-        title = "Finish {} with RSA".format("Encrypt" if self.encrypt.get() == 0 else "Decrypt")
+        title = "Finish {} with El Gamal".format("Encrypt" if self.encrypt.get() == 0 else "Decrypt")
         self.controller.show_end_frame(title, output_dir, result, self.message_option.get() == 0)

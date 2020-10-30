@@ -12,7 +12,6 @@ def modular_pow(base, exponent, modulus): #square and multiply
         base = (base * base) % modulus
     return result
 
-
 def gcd(a, b):
     if (b == 0):
         return a

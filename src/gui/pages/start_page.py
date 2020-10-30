@@ -22,15 +22,17 @@ class StartPage(tk.Frame):
 
         text_elements = [
             "Generate RSA Key",
+            "Generate El Gamal Key",
             "RSA",
-            "Elgamal",
+            "El Gamal",
             "Diffie-Hellman"
         ]
 
         command_elements = [
             lambda: controller.show_frame("RSAGenerateKey"),
+            lambda: controller.show_frame("ElGamalGenerateKey"),
             lambda: controller.show_frame("RSAForm"),
-            lambda: controller.show_frame("ElgamalForm"),
+            lambda: controller.show_frame("ElGamalForm"),
             lambda: controller.show_frame("DiffieHellmanForm")
         ]
 

@@ -1,5 +1,5 @@
 from math import sqrt
-from helper.math import modular_pow
+from src.helper.math import modular_pow
 
 def is_prime(x):
     for i in range(2, int(sqrt(x))):
