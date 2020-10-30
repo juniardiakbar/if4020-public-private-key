@@ -43,7 +43,8 @@ def decrypt(blocks, key, block_size = 2):
     message = ""
 
     for i in range(len(int_blocks)):
-        int_blocks[i] = str(modular_pow(int_blocks[i], d, n))
+        int_blocks[i] = modular_pow(int_blocks[i], d, n)
+
         tmp = ""
         for c in range(block_size):
             tmp = chr(int_blocks[i] % 1000) + tmp
