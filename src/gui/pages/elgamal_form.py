@@ -129,6 +129,7 @@ class ElGamalForm(tk.Frame):
         lines = fo.read()
         fo.close()
 
+        self.selected_key_entry.delete(0, tk.END)
         self.selected_key_entry.insert(tk.END, lines)
 
     def execute(self):
