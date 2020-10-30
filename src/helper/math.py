@@ -1,5 +1,4 @@
 def modular_pow(base, exponent, modulus):
-    # TODO: Mungkin bisa dipindah ke lebih luar
     if modulus == 1:
         return 0
     result = 1

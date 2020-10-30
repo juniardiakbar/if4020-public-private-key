@@ -1,7 +1,7 @@
 import random
 
 from os import path
-from helper import modular_pow
+from helper.math import modular_pow
 
 PRIME_LIST_FILE_NAME = path.abspath(path.join(path.dirname(__file__), 'primes-300k-to-400k.txt'))
 BLOCK_SIZE = 2
