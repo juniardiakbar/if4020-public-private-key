@@ -170,7 +170,7 @@ class RSAForm(tk.Frame):
         output_dir = self.output_dir.get()
 
         if (self.message_option.get() == 1):
-            f = open(output_dir, "a")
+            f = open(output_dir, "w")
             f.write(result)
             f.close()
 
