@@ -1,0 +1,1 @@
+Buatlah sebuah program (sebaiknya dengan GUI) menggunakan Java/C++/ C#/Python yang mengimplementasikan enkripsi/dekripsi dengan algoritma RSA dan algoritma Elgamal, dan pembangkitan kunci sesi dengan algoritma pertukaran kunci Diffie-Hellman dengan spesifikasi sebagai berikut:

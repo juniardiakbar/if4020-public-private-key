@@ -21,12 +21,14 @@ class StartPage(tk.Frame):
         heading.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
 
         text_elements = [
+            "Generate RSA Key",
             "RSA",
             "Elgamal",
             "Diffie-Hellman"
         ]
 
         command_elements = [
+            lambda: controller.show_frame("RSAGenerateKey"),
             lambda: controller.show_frame("RSAForm"),
             lambda: controller.show_frame("ElgamalForm"),
             lambda: controller.show_frame("DiffieHellmanForm")

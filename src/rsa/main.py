@@ -2,9 +2,10 @@ import random
 
 from src.rsa.helper import modular_pow, gcd, xgcd, chooseE
 
-def encrypt(message, block_size = 2):
-    n = 1568953
-    e = 339575
+def encrypt(message, key, block_size = 2):
+    key_string = key.split(", ")
+    n = int(key_string[0])
+    e = int(key_string[1])
 
     encrypted_blocks = []
     ciphertext = -1
@@ -28,10 +29,11 @@ def encrypt(message, block_size = 2):
 
     return encrypted_message
 
-def decrypt(blocks, block_size = 2):
-    n = 1568953
-    d = 545303
-
+def decrypt(blocks, key, block_size = 2):
+    key_string = key.split(", ")
+    n = int(key_string[0])
+    d = int(key_string[1])
+    
     list_blocks = blocks.split(' ')
     int_blocks = []
 
@@ -41,7 +43,7 @@ def decrypt(blocks, block_size = 2):
     message = ""
 
     for i in range(len(int_blocks)):
-        int_blocks[i] = (int_blocks[i]**d) % n
+        int_blocks[i] = str(modular_pow(int_blocks[i], d, n))
         tmp = ""
         for c in range(block_size):
             tmp = chr(int_blocks[i] % 1000) + tmp
@@ -78,5 +80,5 @@ def generate_pair(public_key_path, private_key_path):
     f_public.close()
 
     f_private = open(private_key_path, 'w')
-    f_public.write(str(n) + ', ' + str(d))
+    f_private.write(str(n) + ', ' + str(d))
     f_private.close()
