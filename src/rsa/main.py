@@ -1,6 +1,6 @@
 import random
 
-from src.rsa.helper import modular_pow, gcd, xgcd, chooseE
+from src.helper.math import modular_pow, gcd, xgcd, chooseE
 
 def encrypt(message, key, block_size = 2):
     key_string = key.split(", ")
