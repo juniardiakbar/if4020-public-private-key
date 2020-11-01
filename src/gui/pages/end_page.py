@@ -3,7 +3,7 @@ import src.helper.gui as hg
 
 
 class EndPage(tk.Frame):
-    def __init__(self, parent, controller, title, file_dir, result, isTyping):
+    def __init__(self, parent, controller, title, file_dir, result, isTyping, time, size):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
@@ -24,7 +24,11 @@ class EndPage(tk.Frame):
         else:
             hg.create_label(output_frame, result, 1, 0)
 
-        back_frame = hg.create_frame(self, 3)
+        info_frame = hg.create_frame(self, 3)
+        hg.create_label(info_frame, 'Time elapsed: ' + str(time), 0, 0)
+        hg.create_label(info_frame, 'Size: ' + str(size), 1, 0)
+
+        back_frame = hg.create_frame(self, 4)
         hg.create_button(back_frame, 'Back',
                         lambda: self.controller.show_frame("StartPage"), 0, 1)
         

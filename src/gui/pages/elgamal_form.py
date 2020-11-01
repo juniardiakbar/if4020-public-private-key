@@ -1,3 +1,5 @@
+import os
+import time
 import tkinter as tk
 import tkinter.filedialog as fd
 import src.helper.gui as hg
@@ -94,9 +96,8 @@ class ElGamalForm(tk.Frame):
 
     def render_output_frame(self):
         hg.create_label(self.output_frame, 'Output', 0, 0)
-        hg.create_label(self.output_frame, self.output_dir, 0, 1, fix_text=False)
-        hg.create_button(self.output_frame, 'Choose',
-                        lambda: self.load_output(), 1, 0)
+        self.output_dir = hg.create_entry(self.output_frame, "", 1, 0)
+        hg.create_label(self.output_frame, '.txt', 1, 1)
 
     def render_selected_key_frame(self):
         selected_key_frame = hg.create_frame(self, self.KEY_OPTION_ROW + 1)
@@ -119,10 +120,6 @@ class ElGamalForm(tk.Frame):
         dialog = fd.askopenfilename()
         self.message_dir.set(dialog)
 
-    def load_output(self):
-        dialog = fd.askopenfilename()
-        self.output_dir.set(dialog)
-
     def load_selected_key(self):
         dialog = fd.askopenfilename()
         fo = open(dialog, 'r')
@@ -142,7 +139,6 @@ class ElGamalForm(tk.Frame):
 
         print('> Key:', self.selected_key_entry.get())
 
-
         message = ""
         if (self.message_option.get() == 0):
             message = self.message_entry.get()
@@ -154,24 +150,30 @@ class ElGamalForm(tk.Frame):
 
         key = self.selected_key_entry.get()
 
-        # TRY
-
         if message == '' or key == '':
             return
+
+        start = time.time()
 
         if (self.encrypt.get() == 0):
             result = encrypt(message, key)
         else:
             result = decrypt(message, key)
         
-        output_dir = self.output_dir.get()
+        done = time.time()
+        elapsed = done - start
+        size = 0
+
+        output_dir = "output/" + self.output_dir.get() + ".txt"
 
         if (self.message_option.get() == 1):
             f = open(output_dir, "w")
             f.write(result)
             f.close()
+                        
+            size = os.path.getsize(output_dir)
 
         print('{} Finished!'.format("Encrypt" if self.encrypt.get() == 0 else "Decrypt"))
         
         title = "Finish {} with El Gamal".format("Encrypt" if self.encrypt.get() == 0 else "Decrypt")
-        self.controller.show_end_frame(title, output_dir, result, self.message_option.get() == 0)
+        self.controller.show_end_frame(title, output_dir, result, self.message_option.get() == 0, elapsed, size)
