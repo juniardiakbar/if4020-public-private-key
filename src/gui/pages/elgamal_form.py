@@ -164,9 +164,11 @@ class ElGamalForm(tk.Frame):
         elapsed = done - start
         size = 0
 
-        output_dir = "output/" + self.output_dir.get() + ".txt"
+        output_dir = ""
 
         if (self.message_option.get() == 1):
+            output_dir = "output/" + self.output_dir.get() + ".txt"
+
             f = open(output_dir, "w")
             f.write(result)
             f.close()
