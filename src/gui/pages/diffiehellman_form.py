@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 import tkinter.filedialog as fd
 import src.helper.gui as hg
@@ -76,6 +77,7 @@ class DiffieHellmanForm(tk.Frame):
         print('> Alice\'s Number X:', self.x_entry.get())
         print('> Bob\'s Number Y:', self.y_entry.get())
 
+        start = time.time()
         result = generate_symmetric_key(
             int(self.n_entry.get()),
             int(self.g_entry.get()),
@@ -83,6 +85,9 @@ class DiffieHellmanForm(tk.Frame):
             int(self.y_entry.get())
         )
         print('Key Generation Finished!')
+        done = time.time()
+        elapsed = done - start
+        size = len(str(result))
 
         title = 'Finish Diffie-Hellman Session Key Generation'
-        self.controller.show_end_frame(title, '', result, True)
+        self.controller.show_end_frame(title, '', result, True, elapsed, size)

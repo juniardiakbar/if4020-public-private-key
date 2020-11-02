@@ -176,6 +176,8 @@ class RSAForm(tk.Frame):
             f.close()
             
             size = os.path.getsize(output_dir)
+        else:
+            size = len(str(result))
 
         print('{} Finished!'.format("Encrypt" if self.encrypt.get() == 0 else "Decrypt"))
         
